@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+:root {
+  /* Base - Dark Mode Only */
+  --background: #09090b;
+  /* Zinc 950 */
+  --foreground: #fafafa;
+  /* Zinc 50 */
+
+  /* Surface / Cards */
+  --card: #09090b;
+  --card-foreground: #fafafa;
+  --popover: #09090b;
+  --popover-foreground: #fafafa;
+
+  /* Primary Brand - Electric Violet */
+  --primary: #8b5cf6;
+  --primary-foreground: #fafafa;
+
+  /* Secondary - Teal/Cyan */
+  --secondary: #27272a;
+  /* Zinc 800 for buttons, but maybe we want color? Let's stick to muted for secondary actions */
+  --secondary-foreground: #fafafa;
+
+  /* Muted */
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
+  /* Zinc 400 */
+
+  /* Accents */
+  --accent: #27272a;
+  --accent-foreground: #fafafa;
+
+  /* Destructive */
+  --destructive: #7f1d1d;
+  --destructive-foreground: #fef2f2;
+
+  /* Borders & Inputs */
+  --border: #27272a;
+  --input: #27272a;
+  --ring: #8b5cf6;
+
+  /* Charts / Visualizations */
+  --chart-1: #8b5cf6;
+  /* Violet */
+  --chart-2: #06b6d4;
+  /* Cyan */
+  --chart-3: #10b981;
+  /* Emerald */
+  --chart-4: #f43f5e;
+  /* Rose */
+  --chart-5: #eab308;
+  /* Yellow */
+
+  /* Radius */
+  --radius: 0.5rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 2px);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar Polish */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}
+
+/* Utility for glass effect */
+.glass {
+  background: rgba(9, 9, 11, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Neon Utilities */
+.neon-text {
+  text-shadow: 0 0 10px rgba(139, 92, 246, 0.5), 0 0 20px rgba(139, 92, 246, 0.3);
+}
+
+.neon-border {
+  border-color: var(--primary);
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.2);
+}
+
+
+/* Modern SaaS Polish Utilities */
+@layer utilities {
+  .saas-shadow {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  }
+
+  .saas-border {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  /* Typography Hierarchy */
+  .h1-hero {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .h2-section {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .body-comfortable {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+  }
+}
+
+@layer components {
+  .saas-card {
+    @apply bg-card/80 backdrop-blur-xl transition-all duration-300 ease-in-out;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .saas-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.4), 0 8px 8px -6px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+}
