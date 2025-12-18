@@ -133,3 +133,52 @@ export async function updatePassword(formData: FormData) {
     revalidatePath('/', 'layout')
     redirect('/dashboard')
 }
+
+export async function signInWithGoogle() {
+    const supabase = await createClient()
+
+    // Reliable URL generation using dynamic origin
+    const getURL = async () => {
+        const headersList = await headers();
+        const origin = headersList.get('origin') || headersList.get('referer');
+        const host = headersList.get('host');
+
+        if (origin) {
+            const cleanOrigin = origin.replace(/\/$/, '');
+            return `${cleanOrigin}/`;
+        }
+
+        if (host) {
+            const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
+            return `${protocol}://${host}/`;
+        }
+
+        let url =
+            process.env.NEXT_PUBLIC_SITE_URL ??
+            process.env.NEXT_PUBLIC_VERCEL_URL ??
+            'http://localhost:3000/';
+        url = url.includes('http') ? url : `https://${url}`;
+        return url.charAt(url.length - 1) === '/' ? url : `${url}/`;
+    };
+
+    const origin = await getURL()
+
+    const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+            redirectTo: `${origin}auth/callback`,
+            queryParams: {
+                access_type: 'offline',
+                prompt: 'consent',
+            },
+        },
+    })
+
+    if (error) {
+        return { error: error.message }
+    }
+
+    if (data.url) {
+        redirect(data.url)
+    }
+}

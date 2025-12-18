@@ -1,0 +1,29 @@
+
+> cadence@0.1.0 build
+> next build
+
+   Γû▓ Next.js 16.0.10 (Turbopack)
+   - Environments: .env.local
+
+ ΓÜá The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+   Creating an optimized production build ...
+
+> Build error occurred
+Error: Turbopack build failed with 1 errors:
+./src/app/layout.tsx:3:1
+Module not found: Can't resolve '@vercel/analytics/next'
+  1 | import type { Metadata } from "next";
+  2 | import { Geist, Geist_Mono } from "next/font/google";
+> 3 | import { Analytics } from "@vercel/analytics/next";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { Toaster } from "sonner";
+  5 | import "./globals.css";
+  6 |
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at <unknown> (./src/app/layout.tsx:3:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)

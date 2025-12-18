@@ -3,7 +3,7 @@ create extension if not exists "uuid-ossp";
 
 -- PROFILES (Public profiles linked to Auth Users)
 create table public.profiles (
-  id uuid references auth.users not null primary key,
+  id uuid references auth.users on delete cascade not null primary key,
   username text unique,
   full_name text,
   avatar_url text,
@@ -29,7 +29,7 @@ create policy "Users can update own profile."
 -- TAGS
 create table public.tags (
   id uuid default uuid_generate_v4() primary key,
-  user_id uuid references auth.users not null, -- Every tag belongs to a user (no global tags for now to keep it simple, or maybe global tags have user_id null?)
+  user_id uuid references auth.users on delete cascade not null, -- Every tag belongs to a user (no global tags for now to keep it simple, or maybe global tags have user_id null?)
   -- let's stick to user defined tags for personal brag docs
   name text not null,
   color text not null, -- e.g. '#ff00ff', 'neon-blue'
@@ -59,7 +59,7 @@ create policy "Users can delete own tags"
 -- ENTRIES (The Wins)
 create table public.entries (
   id uuid default uuid_generate_v4() primary key,
-  user_id uuid references auth.users not null,
+  user_id uuid references auth.users on delete cascade not null,
   title text not null,
   description text,
   date timestamp with time zone default timezone('utc'::text, now()) not null,
